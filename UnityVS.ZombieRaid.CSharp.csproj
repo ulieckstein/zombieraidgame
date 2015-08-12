@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraFollowScript.cs" />
     <Compile Include="Assets\Scripts\PlayerControlScript.cs" />
+    <Compile Include="Assets\Scripts\WeaponScript.cs" />
     <Compile Include="Assets\Scripts\ZombieScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
