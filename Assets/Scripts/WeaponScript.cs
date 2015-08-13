@@ -52,6 +52,7 @@ public class WeaponScript : MonoBehaviour
     IEnumerator PushBack(GameObject other)
     {
         yield return new WaitForSeconds(PushBackDelay);
-        other.rigidbody2D.AddForce(gameObject.transform.up * PushBackForce * _hitAccuracy);
+        if (other != null)
+            other.rigidbody2D.AddForce(gameObject.transform.up * PushBackForce * _hitAccuracy);
     }
 }
