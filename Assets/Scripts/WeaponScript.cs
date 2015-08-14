@@ -3,9 +3,6 @@ using System.Collections;
 
 public class WeaponScript : MonoBehaviour
 {
-
-    private Animator _animator;
-    
     public float HitPointsMax;
     public float HitPointsMin;
     public int PrecisionPercent;
@@ -18,24 +15,14 @@ public class WeaponScript : MonoBehaviour
     
     void Start()
     {
-        _animator = GetComponent<Animator>();
         _currentDamage = 0;
         _hitAccuracy = 0.0f;
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Attack();
-        }
-    }
-
-    void Attack()
+    public void Attack()
     {
         _hitAccuracy = (Random.Range(0, 100) < PrecisionPercent ? 1 : 0);
         _currentDamage = Random.Range(HitPointsMax, HitPointsMin)*_hitAccuracy;
-        _animator.SetTrigger("Attack");
     }
 
     void OnTriggerEnter2D(Collider2D other)
