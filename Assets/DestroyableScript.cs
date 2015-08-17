@@ -4,17 +4,32 @@ using System.Collections;
 public class DestroyableScript : MonoBehaviour
 {
 
-    public float Health;
+    public float InitialHealth;
+    private float _health;
+    private Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     public void TakeDamage(float damage)
     {
-        Health -= damage;
-        Debug.Log(gameObject.name + " Health: " + Health);
-        if (Health < 0) Die();
+        _health -= damage;
+        Debug.Log(gameObject.name + " Health: " + _health);
+        if (_health < 0) Die();
+    }
+
+    public float GetHealthPercentage()
+    {
+        return _health/InitialHealth;
     }
 
     public void Die()
     {
-        Destroy(gameObject);
+        _animator.SetBool("Destroyed", true);
+        _animator.SetFloat("HealthPercent", GetHealthPercentage());
+        //gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }
