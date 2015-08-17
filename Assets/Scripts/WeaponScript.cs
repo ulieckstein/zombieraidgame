@@ -43,7 +43,7 @@ public class WeaponScript : MonoBehaviour
 
     private void TriggerHitAnimation(Collider2D other)
     {
-        HitAnimation.transform.position = other.transform.position; 
+        HitAnimation.transform.position = other.transform.position ; 
         HitAnimationController.SetFloat("Damage", _currentDamage);
         HitAnimationController.SetTrigger("Hit");
     }
