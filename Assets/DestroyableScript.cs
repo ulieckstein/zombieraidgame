@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using UnityEngine;
 using System.Collections;
 
@@ -7,10 +8,12 @@ public class DestroyableScript : MonoBehaviour
 
     public float InitialHealth;
     private float _health;
+    private bool _destroyed;
+    
     private Animator _animator;
     public Sprite DestroyedSprite;
-    private bool _destroyed;
-
+    public float DestroyAnimationSeconds;
+    
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -46,7 +49,7 @@ public class DestroyableScript : MonoBehaviour
 
     private IEnumerator ReplaceWithDestroyedSprite()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(DestroyAnimationSeconds);
         if (DestroyedSprite != null)
         {
             var remains = new GameObject("Destroyed " + gameObject.name);

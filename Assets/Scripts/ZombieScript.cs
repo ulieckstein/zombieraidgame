@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ZombieScript : MonoBehaviour
 {
-    public float moveSpeed;
-    public Transform player;
+    public float MoveSpeed;
+    public Transform Prey;
     private Animator _animator;
     private bool _alive;
 
@@ -12,6 +12,7 @@ public class ZombieScript : MonoBehaviour
     {
         _animator = gameObject.GetComponent<Animator>();
         _alive = true;
+        if (Prey == null) Prey = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
@@ -23,7 +24,7 @@ public class ZombieScript : MonoBehaviour
     {
         if (_alive)
         {
-            FollowPlayer();
+            FollowPrey();
         }
         else
         {
@@ -45,11 +46,11 @@ public class ZombieScript : MonoBehaviour
         if (other.gameObject.tag == "Player") _animator.SetBool("PlayerContact", false);
     }
 
-    private void FollowPlayer()
+    private void FollowPrey()
     {
-        float z = Mathf.Atan2((player.transform.position.y - transform.position.y),
-                (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
+        float z = Mathf.Atan2((Prey.transform.position.y - transform.position.y),
+                (Prey.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
         transform.eulerAngles = new Vector3(0, 0, z);
-        rigidbody2D.AddForce(gameObject.transform.up * moveSpeed);
+        rigidbody2D.AddForce(gameObject.transform.up * MoveSpeed);
     }
 }
