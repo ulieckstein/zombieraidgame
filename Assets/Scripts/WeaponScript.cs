@@ -20,21 +20,23 @@ public class WeaponScript : MonoBehaviour
     {
         _currentDamage = 0;
         _hitAccuracy = 0.0f;
-        HitAnimationController = HitAnimation.GetComponent<Animator>();
+        if (HitAnimation != null) HitAnimationController = HitAnimation.GetComponent<Animator>();
     }
 
-    public void Attack()
+    private void SetAttackValues()
     {
         _hitAccuracy = (Random.Range(0, 100) < PrecisionPercent ? 1 : 0);
         _currentDamage = Random.Range(HitPointsMax, HitPointsMin)*_hitAccuracy;
+        Debug.Log("Hit Accuracy = " + _hitAccuracy);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Hit something with damage " + _currentDamage);
-        if (other.gameObject.tag == "Enemy")
+        SetAttackValues();
+        Debug.Log("Hit " + other.name + " with damage " + _currentDamage);
+        var destroyable = other.gameObject.GetComponent<DestroyableScript>();
+        if (destroyable != null)
         {
-            var destroyable = other.gameObject.GetComponent<DestroyableScript>();
             destroyable.TakeDamage(_currentDamage);
             StartCoroutine(PushBack(other.gameObject));
             TriggerHitAnimation(other);
@@ -43,6 +45,7 @@ public class WeaponScript : MonoBehaviour
 
     private void TriggerHitAnimation(Collider2D other)
     {
+        if (HitAnimation == null) return;
         HitAnimation.transform.position = other.transform.position ; 
         HitAnimationController.SetFloat("Damage", _currentDamage);
         HitAnimationController.SetTrigger("Hit");

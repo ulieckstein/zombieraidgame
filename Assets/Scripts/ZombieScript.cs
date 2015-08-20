@@ -36,13 +36,11 @@ public class ZombieScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Collided with " + other.gameObject.tag);
         if (other.gameObject.tag == "Player") _animator.SetBool("PlayerContact", true);
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        Debug.Log("Lost Contact with " + other.gameObject.tag);
         if (other.gameObject.tag == "Player") _animator.SetBool("PlayerContact", false);
     }
 

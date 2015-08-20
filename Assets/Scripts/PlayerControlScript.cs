@@ -4,14 +4,12 @@ using System.Collections;
 public class PlayerControlScript : MonoBehaviour
 {
     private Animator _animator;
-    private WeaponScript _weapon;
     
     public float MoveSpeed;
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _weapon = GetComponentInChildren<WeaponScript>();
     }
 
     private void Update()
@@ -25,7 +23,6 @@ public class PlayerControlScript : MonoBehaviour
     private void Attack()
     {
         _animator.SetTrigger("Attack");
-        _weapon.Attack();
     }
 
 
