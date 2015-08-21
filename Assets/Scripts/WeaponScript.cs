@@ -27,13 +27,12 @@ public class WeaponScript : MonoBehaviour
     {
         _hitAccuracy = (Random.Range(0, 100) < PrecisionPercent ? 1 : 0);
         _currentDamage = Random.Range(HitPointsMax, HitPointsMin)*_hitAccuracy;
-        Debug.Log("Hit Accuracy = " + _hitAccuracy);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         SetAttackValues();
-        Debug.Log("Hit " + other.name + " with damage " + _currentDamage);
+        //Debug.Log("Hit " + other.name + " with damage " + _currentDamage);
         var destroyable = other.gameObject.GetComponent<DestroyableScript>();
         if (destroyable != null)
         {
